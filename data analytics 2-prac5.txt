@@ -1,42 +1,31 @@
-import pandas as pd
 import numpy as np
-import seaborn as sns
 import pandas as pd
-import numpy as np
-import seaborn as sns
-
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from math import exp
-data=pd.read_csv("D:/Social_Network_Ads.csv")
+data=pd.read_csv("D:\Social_Network_Ads.csv")
 data.head()
 
+data.describe()
 
-X_train, x_test, y_train, y_test=train_test_split(data['Age'],data['Purchased'],test_size=0.20)
-from sklearn.linear_model import LogisticRegression
-
-model=LogisticRegression()
-model.fit(X_train.values.reshape(-1,1),y_train.values.reshape(-1,1).ravel())
-
-y_pred_sk=model.predict(x_test.values.reshape(-1,1))
-plt.clf()
-plt.scatter(x_test,y_test)
-plt.scatter(x_test,y_pred_sk,c="red")
+plt.scatter(data['Age'],data['Purchased'])
 plt.xlabel("age")
 plt.ylabel("purchased")
 plt.show()
- 
-print("Accuracy={lr_model.score(x_test.values.reshape(-1,1),y_test.values.reshape(-1,1))}")
 
+x_train,x_test,y_train,y_test=train_test_split(data['Age'],data['Purchased'],test_size=0.20)
 
+from sklearn.linear_model import LogisticRegression
+model=LogisticRegression()
+model.fit(x_train.values.reshape(-1,1),y_train.values.reshape(-1,1).ravel())
 
-plt.scatter(data['Age'],data['Purchased'])
-plt.xlabel("Age")
-plt.ylabel("Purchased")
+y_pred_sk=model.predict(x_test.values.reshape(-1,1))
+plt.clf()
+plt.scatter(x_test,y_pred_sk,c='red')
+plt.xlabel=("age")
+plt.ylabel=("purchased")
 plt.show()
-X_train, x_test, y_train, y_test=train_test_split(data['Age'],data['Purchased'],test_size=0.20)
-
-
+print(f"accuracy={lr_model.score(x_test.values.reshape(-1,1),y_test.values.reshape(-1,1))}")
 
 from sklearn.metrics import confusion_matrix
 tn,fp,fn,tp=confusion_matrix(y_test,y_pred_sk).ravel()
@@ -46,9 +35,9 @@ print("False Negatives",fn)
 print("True Positives",tp)
 
 
-
 Accuracy=(tn+tp)*100/(tp+tn+fp+fn)
 print("Accuracy {:0.2f}%".format(Accuracy))
+
 
 
 precision=tp/(tp+fp)
@@ -59,5 +48,10 @@ Recall=tp/(tp+fn)
 print("Recall {:0.2f}".format(Recall))
 
 
+
+
+
 err=(fp+fn)/(tp+tn+fn+fp)
 print("Error rate {:0.2f}".format(err))
+
+
