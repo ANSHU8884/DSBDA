@@ -50,8 +50,6 @@ new_data=ndf.dropna(axis=0,how='any')
 new_data
 
 
-
-
 col=['math score','reading score','writing score','placement score']
 df.boxplot(col)
 
@@ -60,7 +58,7 @@ print(np.where(df['math score']>90))
 print(np.where(df['reading score']>25))
 
 print(np.where(df['writing score']<30))
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
 
 #import python libraries
 import pandas as pd
