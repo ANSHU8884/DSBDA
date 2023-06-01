@@ -1,0 +1,77 @@
+import pandas as pd
+import numpy as np
+df=pd.read_csv("D:/Iris.csv")
+print(df)
+
+df.head()
+df.tail()
+df.info()
+
+df.describe(include='all')
+
+df.shape
+df.isnull().sum()
+
+col_name=['Sepal_Length','Sepal_Width','Petal_Length','Petal_Width','Species']
+print(df)
+
+print(col_name)
+
+df=pd.read_csv("D:/Iris.csv",names=col_name)
+
+df.index
+
+df.columns
+df.dtypes
+
+df.describe(include="all")
+df["column name"]
+
+df.sort_index(axis=1,ascending=false)
+
+df.sort_values(by="column name")
+
+df.columns.values
+
+df.iloc[5]
+
+df[0:3]
+
+df.iloc[:12,:]
+df.iloc[:,:12]
+
+df.isnull().any()   //is any missing value
+
+df.isnull().sum()      //count column wise missing value
+
+df.isnull().sum(axis=1)   //count row wise missing value
+
+df.Sepal_Length.isnull().sum()  //specific column
+
+df.groupby(['Sepal_Length'])['Sepal_Width'].apply(lambda x:x.isnull().sum())
+
+df.groupby(['Petal_Length'])['Petal_Length'].apply(lambda x:x.isnull().sum())
+df.dtypes
+
+from sklearn import preprocessing
+x=df[['SepalLengthCm']].values.astype(float)
+print(x)
+
+x=df[['PetalLengthCm']].values.astype(int)
+print(x)
+
+
+min_max_scaler=preprocessing.MinMaxScaler()
+x_scaled=min_max_scaler.fit_transform(x)
+df_normalized=pd.DataFrame(x_scaled)
+df_normalized
+
+from sklearn import preprocessing
+df['Species'].unique()
+array(['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'], dtype=object)
+features_df=df.drop(columns=['Species'])
+enc=preprocessing.OneHotEncoder()
+enc_df=pd.DataFrame(enc.fit_transform(df[['Species']]))
+df_encode=features_df.join(enc_df)
+df_encode.rename(columns={0:'Iris-Setosa',1:'Iris-Versicolor',2:'Iris-Verginica'},inplace=True)
+df_encode

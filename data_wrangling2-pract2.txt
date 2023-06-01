@@ -1,0 +1,136 @@
+import pandas as pd
+import numpy as np
+
+df=pd.read_csv("D:\studentsperformance.csv")
+
+df.head()
+
+df.isnull()
+
+series=pd.isnull(df["math score"])
+df[series]
+
+df.notnull()
+
+series1=pd.notnull(df["math score"])
+df[series]
+
+from sklearn.preprocessing import LabelEncoder
+le=LabelEncoder()
+df['gender']=le.fit_transform(df['gender'])
+newdf=df
+df
+
+missing_values=["Na","na"]
+df=pd.read_csv("D:\studentsperformance.csv", na_values=missing_values)
+df
+
+ndf=df
+ndf.fillna(0)
+
+df['math score']=df["math score"].fillna(df['math score'].mean())
+df['math score']=df["math score"].fillna(df['math score'].median())
+df['math score']=df["math score"].fillna(df['math score'].std())
+df['math score']=df["math score"].fillna(df['math score'].min())
+df['math score']=df["math score"].fillna(df['math score'].max()) 
+
+m_v=df['math score'].mean()
+df['math score'].fillna(value=m_v, inplace=True)
+df
+
+ndf.replace(to_replace=np.nan, value=-99)
+
+ndf.dropna()
+
+ndf.dropna(how='all')
+
+ndf.dropna(axis=1)
+
+new_data=ndf.dropna(axis=0,how='any')
+new_data
+
+
+
+
+----------------------------------------------------------------------------
+
+#import python libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+#import dataset & print it
+
+df= pd.read_csv(r"C:\Users\DELL\Desktop\Final Preparation\T8studentperformance.csv")
+df
+
+df.isnull()
+series = pd.isnull(df["math score"])
+df[series]
+
+df.notnull()
+
+series1 = pd.notnull(df["math score"])
+df[series1]
+
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+df['gender'] = le.fit_transform(df['gender'])
+newdf=df
+df
+
+ndf=df
+ndf.fillna(0)
+
+
+m_v=df['math score'].mean()
+df['math score'].fillna(value=m_v, inplace=True)
+df
+
+ndf.replace(to_replace = np.nan, value = -99)
+
+ndf.dropna()
+
+ndf.dropna(how = 'all')
+
+
+ndf.dropna(axis = 1)
+
+new_data = ndf.dropna(axis = 0, how ='any')
+new_data
+
+
+col = ['math score', 'reading score' , 'writing score','placement score']
+df.boxplot(col)
+
+
+
+print(np.where(df['math score']>90))
+print(np.where(df['reading score']<25))
+print(np.where(df['writing score']<30))
+
+
+
+fig, ax = plt.subplots(figsize = (18,10))
+ax.scatter(df['placement score'], df['placement offer count'])
+plt.show()
+
+
+print(np.where((df['placement score']<50) & (df['placement offer count']>1)))
+print(np.where((df['placement score']>85) & (df['placement offer count']<3)))
+
+from scipy import stats
+z = np.abs(stats.zscore(df['math score']))
+print(z)
+
+
+threshold = 0.18
+sample_outliers = np.where(z <threshold)
+sample_outliers
+
+df['math score'].plot(kind = 'hist')
+
+print("Finished")
+Finished
+print("Thank you")
+Thank you
+ 
