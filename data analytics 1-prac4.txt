@@ -1,17 +1,9 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-df=pd.read_csv("E:\housing.csv")
-print(df)
-
-correlation_matrix=df.corr().round(2)
-sns.heatmap(data=correlation_matrix, annot=True)
 
 from sklearn.datasets import load_boston
 
-print(boston_dataset.keys())
+boston_dataset=load_boston()
 
 data=pd.DataFrame(boston_dataset.data,columns=boston_dataset.feature_names)
 data.head()
@@ -19,19 +11,41 @@ data.head()
 data['price']=boston_dataset.target
 data.head()
 
+data.describe()
+
+data.info()
+
+data.isnull().sum()
+
 import seaborn as sns
+import matplotlib.pyplot as plt
 sns.set(rc={'figure.figsize':(11.7,8.27)})
 sns.displot(data['price'],bins=30);
 plt.show()
 
-plt.figure(figsize=(20,7))
-features=['LSTAT','RM']
+correlation_matrix=data.corr().round(2)
+sns.heatmap(data=correlation_matrix,annot=True)
+
+plt.figure(figsize=(20,5))
+feature=['LSTAT','RM']
 target=data['price']
-for i, col in enumerate(features):
-    plt.subplot(1, len(features), i+1)
+for i,col in enumerate(feature):
+    plt.subplot(1,len(feature),i+1)
     x=data[col]
     y=target
     plt.scatter(x,y,marker='o')
     plt.title(col)
     plt.xlabel(col)
     plt.ylabel('MEDV')
+
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=5)
+print(x_train.shape)
+print(x_test.shape)
+print(y_train.shape)
+print(y_test.shape)
+
+from sklearn.linear_model import LinearRegression
+model=LinearRegression()
+model.fit(x_train,y_train)
+
